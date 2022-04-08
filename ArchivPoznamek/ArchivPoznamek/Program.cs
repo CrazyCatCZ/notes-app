@@ -1,7 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using ArchivPoznamek.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ArchivPoznamekData>(options =>
+               options.UseSqlServer(builder.Configuration.GetConnectionString("ArchivPoznamek")));
 
 var app = builder.Build();
 
