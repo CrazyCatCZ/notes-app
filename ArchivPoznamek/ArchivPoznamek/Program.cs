@@ -5,8 +5,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Databáze
 builder.Services.AddDbContext<ArchivPoznamekData>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("ArchivPoznamek")));
+
+// Session
+builder.Services.AddSession(options => {
+    options.Cookie.Name = ".ArchivPoznamek";
+    options.Cookie.IsEssential = true;
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 
@@ -22,8 +32,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

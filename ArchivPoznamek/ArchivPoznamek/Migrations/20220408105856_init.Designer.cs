@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArchivPoznamek.Migrations
 {
     [DbContext(typeof(ArchivPoznamekData))]
-    [Migration("20220408102034_init")]
+    [Migration("20220408105856_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
