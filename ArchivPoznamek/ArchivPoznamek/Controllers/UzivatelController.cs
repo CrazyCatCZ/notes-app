@@ -35,6 +35,7 @@ namespace ArchivPoznamek.Controllers
             if (heslo != hesloKontrola)
                 return RedirectToAction("Registrovat");
 
+            string zashashovaneHeslo = BCrypt.Net.BCrypt.HashPassword(heslo);
             Uzivatel? existujiciUzivatel = _databaze.Uzivatele
                 .Where(u => u.Jmeno == jmeno)
                 .FirstOrDefault();
@@ -45,7 +46,7 @@ namespace ArchivPoznamek.Controllers
             Uzivatel novyUzivatel = new Uzivatel()
             {
                 Jmeno = jmeno,
-                Heslo = heslo,
+                Heslo = zashashovaneHeslo,
             };
 
             _databaze.Add(novyUzivatel);
@@ -74,8 +75,17 @@ namespace ArchivPoznamek.Controllers
 
             if (prihlasovanyUzivatel == null)
                 return RedirectToAction("Prihlasit");
+
+            bool validPassword = BCrypt.Net.BCrypt.Verify(heslo, prihlasovanyUzivatel.Heslo);
+            if (validPassword == false)
+            {
+                return RedirectToAction("Prihlasit");
+            }
+
+            /*
             if (prihlasovanyUzivatel.Heslo != heslo)
                 return RedirectToAction("Prihlasit");
+            */
 
             HttpContext.Session.SetString("Prihlaseny", prihlasovanyUzivatel.Jmeno);
 
