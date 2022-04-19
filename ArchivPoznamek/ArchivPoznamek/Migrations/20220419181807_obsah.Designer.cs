@@ -4,6 +4,7 @@ using ArchivPoznamek.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ArchivPoznamek.Migrations
 {
     [DbContext(typeof(ArchivPoznamekData))]
-    partial class ArchivPoznamekDataModelSnapshot : ModelSnapshot
+    [Migration("20220419181807_obsah")]
+    partial class obsah
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

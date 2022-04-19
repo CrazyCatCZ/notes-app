@@ -1,0 +1,21 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "Nová poznámka";
+    string? prihlaseny = HttpContextAccessor.HttpContext.Session.GetString("Prihlaseny");
+}
+
+@if(prihlaseny != null)
+{
+    <form action="/Poznamky/Pridat" method="post">
+        <input required type="text" name="nadpis" placeholder="Název poznámky" />
+        <input required type="text" name="obsah" placeholder="Obsah poznámky" />
+        <br/>
+        <label for="dulezity">Je úkol důležitý?</label>
+        <input name="dulezity" type="checkbox" value="ano" />
+        <br />
+        <br/>
+        <input type="submit" value="Přidat" />
+    </form>
+}

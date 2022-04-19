@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 
 // Databáze
 builder.Services.AddDbContext<ArchivPoznamekData>(options =>
@@ -36,6 +37,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Poznamky}/{action=Vypsat}/{id?}");
 
 app.Run();

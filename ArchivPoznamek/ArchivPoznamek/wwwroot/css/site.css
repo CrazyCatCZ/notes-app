@@ -16,3 +16,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.poznamka a, .dulezita-poznamka a {
+    color: white;
+}
+
+.poznamka, .dulezita-poznamka {
+    margin-top: 10px;
+    padding: 10px;
+    width: 33%;
+    color: white;
+
+}
+.poznamka {
+    background-color: #424242;
+}
+
+.dulezita-poznamka {
+    background-color: #D0312D;
+}

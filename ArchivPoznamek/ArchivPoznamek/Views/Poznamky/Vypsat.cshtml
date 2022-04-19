@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewData["Title"] = "Home";
+    string? prihlaseny = HttpContextAccessor.HttpContext.Session.GetString("Prihlaseny");
+}
+
+
+@if(prihlaseny == null)
+{
+    <h2>Je nutné se přihlásit</h2>
+    <p><a asp-area="" asp-controller="Uzivatel" asp-action="Prihlasit">Přihlásit se</a>
+        <br/>
+        Nemáte učet?
+       <a asp-area="" asp-controller="Uzivatel" asp-action="Registrovat">Zaregistrovat se</a>
+    </p>
+}
+else
+{
+    <a asp-area="" asp-controller="Poznamky" asp-action="Pridat" class="pridat"><h2>Přidat poznámku</h2></a>
+    <br/>
+    <br/>
+
+    @:<div class="poznmaky-container">
+        @if (Model == null || Model.Count == 0)
+        {
+            @: <p class="prihlas-se">Zatím žádné poznámky.</p>
+        }
+        @foreach(ArchivPoznamek.Models.Poznamka poznamka in Model)
+        {
+            @if(poznamka.Dulezitost)
+            {
+                @: <div class="dulezita-poznamka">
+            }
+            else
+            {
+                @: <div class="poznamka">
+            }
+
+                <h3><a href="/Poznamky/Poznamka/@poznamka.Id">@poznamka.Nadpis</a></h3>
+                <p>@poznamka.Obsah</p>
+                <p>@poznamka.DatumVlozeni</p>
+                <a href="/Poznamky/Smazat/@poznamka.Id">Smazat</a>
+            @: </div>
+        }
+    @:</div>
+}

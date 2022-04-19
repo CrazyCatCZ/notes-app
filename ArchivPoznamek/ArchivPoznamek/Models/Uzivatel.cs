@@ -13,6 +13,8 @@ namespace ArchivPoznamek.Models
         public string Heslo { get; set; } = String.Empty;
         [Required]
         public string Email { get; set; } = String.Empty;
+        virtual public List<Poznamka>? Poznamky { get; set; }
+
 
         //[Required]
         //virtual public List<Ukol>? Ukoly { get; set; }
