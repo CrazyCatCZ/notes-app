@@ -4,8 +4,9 @@
 }
 
 <form action="/Uzivatel/Registrovat" method="post">
-    <input type="text" name="jmeno" placeholder="Jméno..." /><br />
-    <input type="password" name="heslo" placeholder="Heslo..." /><br />
-    <input type="password" name="hesloKontrola" placeholder="Heslo pro kontrolu..." /><br />
+    <input required type="text" name="jmeno" placeholder="Jméno..." /><br />
+    <input required type="text" name="email" placeholder="Email..." /><br />
+    <input required type="password" name="heslo" placeholder="Heslo..." /><br />
+    <input required type="password" name="hesloKontrola" placeholder="Heslo pro kontrolu..." /><br />
     <input type="submit" value="Registrovat" />
 </form>

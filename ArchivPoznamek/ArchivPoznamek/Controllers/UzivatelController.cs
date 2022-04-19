@@ -21,7 +21,7 @@ namespace ArchivPoznamek.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registrovat(string jmeno, string heslo, string hesloKontrola)
+        public IActionResult Registrovat(string jmeno, string email, string heslo, string hesloKontrola)
         {
             if (jmeno != null)
                 jmeno = jmeno.Trim().ToLower();
@@ -46,6 +46,7 @@ namespace ArchivPoznamek.Controllers
             Uzivatel novyUzivatel = new Uzivatel()
             {
                 Jmeno = jmeno,
+                Email = email,
                 Heslo = zashashovaneHeslo,
             };
 
