@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewData["Title"] = "Detail";
+    string? prihlaseny = HttpContextAccessor.HttpContext.Session.GetString("Prihlaseny");
+}
+
+@if(Model.Dulezitost)
+{
+    @: <div class="dulezita-poznamka-detail">
+}
+else
+{
+    @: <div class="poznamka-detail">
+}
+
+    <h3 class="poznamka-text">@Model.Nadpis</h3>
+    <p class="poznamka-text">@Model.Obsah</p>
+    <p>@Model.DatumVlozeni</p>
+    <a href="/Poznamky/Smazat/@Model.Id">Smazat</a>
+</div>

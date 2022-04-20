@@ -59,6 +59,26 @@ namespace ArchivPoznamek.Controllers
         }
 
         [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            Uzivatel? prihlasenyUzivatel = KdoJePrihlasen();
+
+            Poznamka? poznamka = _databaze.Poznamky
+                .Where(u => u.Id == id)
+                .FirstOrDefault();
+
+            if (prihlasenyUzivatel == null)
+                return RedirectToAction("Prihlasit", "Uzivatel");
+
+            if (prihlasenyUzivatel != poznamka.Autor)
+            {
+                return RedirectToAction("Vypsat");
+            }
+
+            return View(poznamka);
+        }
+
+        [HttpGet]
         public IActionResult Smazat(int id)
         {
             Uzivatel? prihlasenyUzivatel = KdoJePrihlasen();

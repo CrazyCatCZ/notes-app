@@ -17,21 +17,29 @@ body {
   margin-bottom: 60px;
 }
 
-.poznamka a, .dulezita-poznamka a {
+.poznamka a, .dulezita-poznamka a, .poznamka-detail a, .dulezita-poznamka-detail a {
+    color: white;
+}
+
+.poznamka, .dulezita-poznamka, .poznamka-detail, .dulezita-poznamka-detail {
+    margin-top: 10px;
+    padding: 10px;
     color: white;
 }
 
 .poznamka, .dulezita-poznamka {
-    margin-top: 10px;
-    padding: 10px;
-    width: 33%;
-    color: white;
-
+    width: 33%
 }
-.poznamka {
+
+.poznamka, .poznamka-detail {
     background-color: #424242;
 }
 
-.dulezita-poznamka {
+.dulezita-poznamka, .dulezita-poznamka-detail {
     background-color: #D0312D;
+}
+
+.poznamka-text {
+    display: flex;
+    flex-wrap: wrap;
 }
