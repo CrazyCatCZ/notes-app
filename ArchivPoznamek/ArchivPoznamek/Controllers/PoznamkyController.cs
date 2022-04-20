@@ -51,8 +51,7 @@ namespace ArchivPoznamek.Controllers
 
             List<Poznamka> vsechnyPoznamky = _databaze.Poznamky
                 .Where(u => u.Autor == prihlasenyUzivatel)
-                .OrderBy(u => u.DatumVlozeni)
-                .ThenBy(u => u.DatumVlozeni)
+                .OrderByDescending(u => u.DatumVlozeni)
                 .ToList();
 
             return View(vsechnyPoznamky);
