@@ -100,5 +100,53 @@ namespace ArchivPoznamek.Controllers
 
             return RedirectToAction("", "");
         }
+
+        [HttpGet]
+        public IActionResult Odstranit()
+        {
+            Uzivatel? prihlasenyUzivatel = KdoJePrihlasen();
+
+            if (prihlasenyUzivatel == null)
+                return RedirectToAction("Prihlasit", "Uzivatel");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Odstranit(string heslo)
+        {
+            Uzivatel? prihlasenyUzivatel = KdoJePrihlasen();
+
+            bool validPassword = BCrypt.Net.BCrypt.Verify(heslo, prihlasenyUzivatel.Heslo);
+            if (validPassword == false)
+                return RedirectToAction("Odstranit");
+
+            Uzivatel? uzivatel = _databaze.Uzivatele
+                .Where(u => u.Id == prihlasenyUzivatel.Id)
+                .FirstOrDefault();
+
+            if (uzivatel != null && uzivatel.Id == prihlasenyUzivatel.Id)
+            {
+                _databaze.Uzivatele.Remove(uzivatel);
+                _databaze.SaveChanges();
+                HttpContext.Session.Clear();
+            }
+
+            return RedirectToAction("", "");
+        }
+        private Uzivatel? KdoJePrihlasen()
+        {
+            string? jmenoPrihlasenehoUzivatele = HttpContext.Session.GetString("Prihlaseny");
+
+            if (jmenoPrihlasenehoUzivatele == null)
+                return null;
+
+            Uzivatel? prihlasenyUzivatel
+                = _databaze.Uzivatele
+                .Where(u => u.Jmeno == jmenoPrihlasenehoUzivatele)
+                .FirstOrDefault();
+
+            return prihlasenyUzivatel;
+        }
     }
 }

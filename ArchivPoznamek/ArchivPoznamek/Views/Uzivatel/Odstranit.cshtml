@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{
+    ViewData["Title"] = "Smazat";
+    string? prihlaseny = HttpContextAccessor.HttpContext.Session.GetString("Prihlaseny");
+}
+
+<h3>Zadejte heslo, abyste mohli odstranit váš účet</h3>
+<br/>
+<form action="/Uzivatel/Odstranit" method="post">
+    <input type="password" name="heslo" placeholder="Heslo..." /><br />
+    <input type="submit" value="Odsranit" />
+</form>
