@@ -51,9 +51,32 @@ namespace ArchivPoznamek.Controllers
 
             List<Poznamka> vsechnyPoznamky = _databaze.Poznamky
                 .Where(u => u.Autor == prihlasenyUzivatel)
+                .OrderBy(u => u.DatumVlozeni)
+                .ThenBy(u => u.DatumVlozeni)
                 .ToList();
 
             return View(vsechnyPoznamky);
+        }
+
+        [HttpGet]
+        public IActionResult Smazat(int id)
+        {
+            Uzivatel? prihlasenyUzivatel = KdoJePrihlasen();
+
+            if (prihlasenyUzivatel == null)
+                return RedirectToAction("Prihlasit", "Uzivatel");
+
+            Poznamka? poznamka = _databaze.Poznamky
+                .Where(u => u.Id == id)
+                .FirstOrDefault();
+
+            if (poznamka != null && poznamka.Autor == prihlasenyUzivatel)
+            {
+                _databaze.Poznamky.Remove(poznamka);
+                _databaze.SaveChanges();
+            }
+
+            return RedirectToAction("Vypsat");
         }
 
         private  Uzivatel? KdoJePrihlasen()
